@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Button uploadBtn, showAllBtn;
     private ImageView imageView;
     private ProgressBar progressBar;
+    private EditText editDesc;
 
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Image");
     private StorageReference reference = FirebaseStorage.getInstance().getReference("Images");
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         showAllBtn = findViewById(R.id.btnshow);
         progressBar = findViewById(R.id.progress);
         imageView = findViewById(R.id.imageView);
-
+        editDesc=findViewById(R.id.editTextTextPersonName);
         progressBar.setVisibility(View.INVISIBLE);
 
         showAllBtn.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +109,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
 
-                        Upload upload = new Upload(uri.toString());
+                        Upload upload = new Upload(
+                                uri.toString(),editDesc.getText().toString().trim());//(uri.toString());
                         String uploadId = root.push().getKey();
                         root.child(uploadId).setValue(upload);
                         progressBar.setVisibility(View.INVISIBLE);
