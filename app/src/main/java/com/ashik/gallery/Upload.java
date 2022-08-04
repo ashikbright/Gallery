@@ -1,9 +1,11 @@
 package com.ashik.gallery;
 
+import com.google.firebase.database.Exclude;
+
 public class Upload {
     private String imageUrl;
     private String desc;
-
+    private  String key;
     public Upload(){
 
     }
@@ -27,5 +29,14 @@ public class Upload {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    @Exclude
+    public String getKey() {
+        return key;
+    }
+    @Exclude
+    public void setKey(String key) {
+        this.key = key;
     }
 }
